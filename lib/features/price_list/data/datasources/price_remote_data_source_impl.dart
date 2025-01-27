@@ -19,6 +19,8 @@ class PriceRemoteDataSourceImpl implements PriceRemoteDataSource {
   Future<List<PriceModel>> getPrices() async {
     try {
       final response = await client.get(Api.prices);
+      Logger.log('Response status: ${response.statusCode}');
+      Logger.log('Response data: ${response.data}');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = response.data;
@@ -30,7 +32,8 @@ class PriceRemoteDataSourceImpl implements PriceRemoteDataSource {
               try {
                 prices.add(PriceModel.fromJson(href, details));
               } catch (e) {
-                Logger.log('${Strings.debugParsingError}$href: $e');
+                Logger.log('Detailed error: $e');
+                throw ServerException(e.toString());
               }
             }
           });
