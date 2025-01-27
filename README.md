@@ -1,6 +1,6 @@
-# genotek
+# genotek-price-list
 
-A new Flutter project.
+Flutter application displaying price list with desktop and mobile support. Features Clean Architecture, BLoC pattern, and dependency injection.
 
 ## Getting Started
 
