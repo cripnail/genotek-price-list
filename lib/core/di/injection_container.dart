@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:genotek/core/constants/api.dart';
 import 'package:genotek/features/price_list/data/datasources/price_remote_data_source.dart';
 import 'package:genotek/features/price_list/data/datasources/price_remote_data_source_impl.dart';
 import 'package:genotek/features/price_list/data/repositories/price_repository_impl.dart';
@@ -18,15 +19,7 @@ Future<void> init() async {
   sl.registerLazySingleton<PriceRemoteDataSource>(
       () => PriceRemoteDataSourceImpl(client: sl()));
 
-  final dio = Dio()
-    ..options.baseUrl = 'https://back.genotek.ru'
-    ..options.connectTimeout = const Duration(seconds: 30)
-    ..options.receiveTimeout = const Duration(seconds: 30)
-    ..options.headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    };
+  final dio = Dio()..options.baseUrl = Api.baseUrl;
 
   if (kDebugMode) {
     dio.interceptors.add(LogInterceptor(
